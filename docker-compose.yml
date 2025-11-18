@@ -1,0 +1,111 @@
+# BeforeDawn Docker Compose配置 - 超简单版
+# 只需要：MySQL + Redis + 后端 + 前端
+
+services:
+  # ==================== MySQL数据库 ====================
+  mysql:
+    image: mysql:8.0
+    container_name: beforedawn-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root^*#483956
+      MYSQL_DATABASE: beforedawn_vuln
+      MYSQL_USER: beforedawn
+      MYSQL_PASSWORD: beforedawn^*#483956
+      TZ: Asia/Shanghai
+    # 生产环境不暴露MySQL端口（需要连接的话用SSH隧道）
+    # ports:
+    #   - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      # 自动加载SQL初始化脚本（第一次启动时执行）
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - beforedawn-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot^*#483956"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==================== Redis缓存 ====================
+  redis:
+    image: redis:7.0-alpine
+    container_name: beforedawn-redis
+    restart: always
+    # 生产环境不暴露Redis端口（需要连接的话用SSH隧道）
+    # ports:
+    #   - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass redis^*#483956
+    networks:
+      - beforedawn-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis^*#483956", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ==================== Spring Boot后端 ====================
+  backend:
+    build: ./backend
+    container_name: beforedawn-backend
+    restart: always
+    # 生产环境不暴露后端端口（前端Nginx会代理）
+    # 本地开发需要直接访问后端的话，取消注释下面这行
+    # ports:
+    #   - "8080:8080"
+    environment:
+      # 激活prod配置
+      SPRING_PROFILES_ACTIVE: prod
+      # 数据库URL（覆盖application-prod.yml）
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/beforedawn_vuln?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      # 数据库配置（匹配application-prod.yml的环境变量）
+      DB_USERNAME: beforedawn
+      DB_PASSWORD: beforedawn^*#483956
+      # Redis配置（匹配application-prod.yml的环境变量）
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis^*#483956
+      # JWT密钥（匹配application-prod.yml的环境变量，至少32字符）
+      JWT_SECRET: beforedawn_jwt_secret_key_20241118
+      TZ: Asia/Shanghai
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_logs:/app/logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - beforedawn-network
+
+  # ==================== Vue前端 + Nginx ====================
+  frontend:
+    build: ./frontend
+    container_name: beforedawn-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - beforedawn-network
+
+# ==================== 数据卷（持久化） ====================
+volumes:
+  mysql_data:
+  redis_data:
+  backend_uploads:
+  backend_logs:
+
+# ==================== 网络 ====================
+networks:
+  beforedawn-network:
+    driver: bridge
