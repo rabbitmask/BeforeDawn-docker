@@ -1,0 +1,1 @@
+import{ap as t}from"./index-UXitE9cW.js";function i(){return t({url:"/statistics/dashboard",method:"get"})}function r(){return t({url:"/statistics/vuln",method:"get"})}function a(s="fixedCount"){return t({url:"/statistics/developer",method:"get",params:{orderBy:s}})}function u(){return t({url:"/statistics/security",method:"get"})}export{r as a,u as b,i as g,a as l};
