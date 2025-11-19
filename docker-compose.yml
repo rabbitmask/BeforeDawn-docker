@@ -1,4 +1,4 @@
-# BeforeDawn Docker Compose配置 - 超简单版
+# BeforeDawn Docker Compose配置
 # 只需要：MySQL + Redis + 后端 + 前端
 
 services:
