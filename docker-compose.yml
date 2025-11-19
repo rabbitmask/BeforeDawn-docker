@@ -92,7 +92,7 @@ services:
     container_name: beforedawn-frontend
     restart: always
     ports:
-      - "80:80"
+      - "1988:1988"
     depends_on:
       - backend
     networks:
