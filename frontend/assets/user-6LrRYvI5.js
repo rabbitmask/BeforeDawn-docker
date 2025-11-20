@@ -1,0 +1,1 @@
+import{ap as r}from"./index-nPQbSI0E.js";function t(e){return r({url:"/system/user/list",method:"get",params:e})}function u(e){return r({url:`/system/user/reset-password/${e}`,method:"put"})}function o(e){return r({url:"/system/user/update-profile",method:"put",data:e})}export{t as g,u as r,o as u};
