@@ -1,1 +1,0 @@
-import{ap as t}from"./index-gZy6T0gL.js";function n(e){const a=new FormData;return a.append("file",e),t({url:"/file/upload",method:"post",data:a,headers:{"Content-Type":"multipart/form-data"}})}function r(e){return`/api/file/download?filePath=${encodeURIComponent(e)}`}export{r as g,n as u};
