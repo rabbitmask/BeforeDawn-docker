@@ -1,0 +1,1 @@
+import{ao as i}from"./index-bBUAzOnK.js";function u(r,f="YYYY-MM-DD HH:mm:ss"){return r?i(r).format(f):""}function s(r){return u(r,"YYYY-MM-DD")}function m(r){if(!r)return"";const f=i(),t=i(r),n=f.diff(t,"minute"),o=f.diff(t,"hour"),e=f.diff(t,"day");return n<1?"刚刚":n<60?`${n}分钟前`:o<24?`${o}小时前`:e<7?`${e}天前`:s(r)}export{u as a,m as f};
