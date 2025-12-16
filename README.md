@@ -156,4 +156,16 @@ JWT_SECRET: beforedawn_jwt_secret_key_20241118  # ← 改成随机字符串（�
 - 改完密码后要同步修改`DB_PASSWORD`、`REDIS_PASSWORD`等环境变量
 - **JWT_SECRET必须至少32个字符**（HMAC-SHA256要求），否则后端启动失败
 
+
+## 🔧 更新日志
+12.2
+修复资产管理批量导出bug
+
+12.11
+修复登录超时token过期浏览器缓存却未清除的bug
+
+12.16
+修复首页漏洞风险等级不匹配的bug，优化前端UI
+修复现有字典禁用redis缓存不能实时更新的bug
+修复快速登录登出换账户cookie缓存更新不及时bug（localStorage清除不彻底）
 ---
