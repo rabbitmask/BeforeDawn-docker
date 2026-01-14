@@ -169,5 +169,9 @@ JWT_SECRET: beforedawn_jwt_secret_key_20241118  # ← 改成随机字符串（�
 修复首页漏洞风险等级不匹配的bug，优化前端UI
 修复现有字典禁用redis缓存不能实时更新的bug
 修复快速登录登出换账户cookie缓存更新不及时bug（localStorage清除不彻底）
+
+1.14
+修复前端分页异常
+优化资产列表显示，增加查看功能，漏洞关联
 ```
 ---
