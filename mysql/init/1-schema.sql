@@ -21,7 +21,7 @@ USE beforedawn_vuln;
 -- 部门表
 DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '部门ID',
+    `id` BIGINT NOT NULL COMMENT '部门ID（MyBatis-Plus雪花ID）',
     `dept_name` VARCHAR(100) NOT NULL COMMENT '部门名称',
     `parent_id` BIGINT DEFAULT 0 COMMENT '父部门ID（0表示根部门）',
     `sort_order` INT DEFAULT 0 COMMENT '显示顺序',
@@ -42,7 +42,7 @@ CREATE TABLE `sys_department` (
 -- 用户表
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+    `id` BIGINT NOT NULL COMMENT '用户ID（MyBatis-Plus雪花ID）',
     `username` VARCHAR(50) NOT NULL COMMENT '用户名',
     `password` VARCHAR(200) NOT NULL COMMENT '密码（BCrypt加密）',
     `real_name` VARCHAR(50) COMMENT '真实姓名',
@@ -71,7 +71,7 @@ CREATE TABLE `sys_user` (
 -- 字典类型表
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '字典类型ID',
+    `id` BIGINT NOT NULL COMMENT '字典类型ID（MyBatis-Plus雪花ID）',
     `dict_code` VARCHAR(100) NOT NULL COMMENT '字典编码（唯一标识）',
     `dict_name` VARCHAR(100) NOT NULL COMMENT '字典名称',
     `description` VARCHAR(500) COMMENT '字典描述',
@@ -90,7 +90,7 @@ CREATE TABLE `sys_dict_type` (
 -- 字典数据表
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '字典数据ID',
+    `id` BIGINT NOT NULL COMMENT '字典数据ID（MyBatis-Plus雪花ID）',
     `dict_type_code` VARCHAR(100) NOT NULL COMMENT '字典类型编码',
     `dict_label` VARCHAR(100) NOT NULL COMMENT '字典标签（显示给用户）',
     `dict_value` VARCHAR(100) NOT NULL COMMENT '字典键值（存储到数据库）',
@@ -119,7 +119,7 @@ CREATE TABLE `sys_dict_data` (
 -- 资产信息表
 DROP TABLE IF EXISTS `asset_info`;
 CREATE TABLE `asset_info` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '资产ID',
+    `id` BIGINT NOT NULL COMMENT '资产ID（MyBatis-Plus雪花ID）',
     `asset_code` VARCHAR(100) NOT NULL COMMENT '资产编码（唯一标识）',
     `asset_name` VARCHAR(200) NOT NULL COMMENT '资产名称',
     `asset_type` VARCHAR(50) NOT NULL COMMENT '资产类型（字典：asset_type）',
@@ -172,7 +172,7 @@ CREATE TABLE `asset_info` (
 -- 漏洞信息表
 DROP TABLE IF EXISTS `vuln_vulnerability`;
 CREATE TABLE `vuln_vulnerability` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '漏洞ID',
+    `id` BIGINT NOT NULL COMMENT '漏洞ID（MyBatis-Plus雪花ID）',
     `vuln_code` VARCHAR(50) NOT NULL COMMENT '漏洞编号：VULN-20250101-001',
     `title` VARCHAR(200) NOT NULL COMMENT '漏洞标题',
     `description` TEXT COMMENT '漏洞描述',
@@ -234,7 +234,7 @@ CREATE TABLE `vuln_vulnerability` (
 -- 漏洞复测记录表
 DROP TABLE IF EXISTS `vuln_retest_record`;
 CREATE TABLE `vuln_retest_record` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `id` BIGINT NOT NULL COMMENT 'ID（MyBatis-Plus雪花ID）',
     `vuln_id` BIGINT NOT NULL COMMENT '漏洞ID',
     `vuln_code` VARCHAR(50) COMMENT '漏洞编号（冗余）',
     `retest_round` INT NOT NULL COMMENT '复测轮次（1,2,3...）',
@@ -259,7 +259,7 @@ CREATE TABLE `vuln_retest_record` (
 -- 漏洞操作日志表
 DROP TABLE IF EXISTS `vuln_operation_log`;
 CREATE TABLE `vuln_operation_log` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `id` BIGINT NOT NULL COMMENT 'ID（MyBatis-Plus雪花ID）',
     `vuln_id` BIGINT NOT NULL COMMENT '漏洞ID',
     `vuln_code` VARCHAR(50) COMMENT '漏洞编号（冗余）',
     `operation_type` VARCHAR(50) NOT NULL COMMENT '操作类型：create/assign/fix/retest/close等',
@@ -282,7 +282,7 @@ CREATE TABLE `vuln_operation_log` (
 -- 漏洞附件表
 DROP TABLE IF EXISTS `vuln_attachment`;
 CREATE TABLE `vuln_attachment` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `id` BIGINT NOT NULL COMMENT 'ID（MyBatis-Plus雪花ID）',
     `vuln_id` BIGINT NOT NULL COMMENT '漏洞ID',
     `file_name` VARCHAR(200) NOT NULL COMMENT '文件名',
     `file_path` VARCHAR(500) NOT NULL COMMENT '文件路径',
@@ -312,7 +312,7 @@ CREATE TABLE `vuln_attachment` (
 -- 知识库文章表
 DROP TABLE IF EXISTS `knowledge_article`;
 CREATE TABLE `knowledge_article` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '文章ID',
+    `id` BIGINT NOT NULL COMMENT '文章ID（MyBatis-Plus雪花ID）',
     `article_code` VARCHAR(50) NOT NULL COMMENT '文章编号：KB-20250101-001',
     `title` VARCHAR(200) NOT NULL COMMENT '文章标题',
     `summary` VARCHAR(500) COMMENT '文章摘要',
@@ -358,7 +358,7 @@ CREATE TABLE `knowledge_article` (
 -- 角色表
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+    `id` BIGINT NOT NULL COMMENT '角色ID（MyBatis-Plus雪花ID）',
     `role_code` VARCHAR(50) NOT NULL COMMENT '角色编码（唯一标识，如ADMIN、SECURITY）',
     `role_name` VARCHAR(100) NOT NULL COMMENT '角色名称（如：管理员、安全人员）',
     `role_type` VARCHAR(20) DEFAULT 'custom' COMMENT '角色类型：system-系统内置 custom-自定义',
@@ -378,7 +378,7 @@ CREATE TABLE `sys_role` (
 -- 权限表
 DROP TABLE IF EXISTS `sys_permission`;
 CREATE TABLE `sys_permission` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '权限ID',
+    `id` BIGINT NOT NULL COMMENT '权限ID（MyBatis-Plus雪花ID）',
     `permission_code` VARCHAR(100) NOT NULL COMMENT '权限编码（唯一标识，如system:user:add）',
     `permission_name` VARCHAR(100) NOT NULL COMMENT '权限名称（如：新增用户）',
     `permission_type` VARCHAR(20) NOT NULL COMMENT '权限类型：menu-菜单 button-按钮 api-接口',
@@ -429,6 +429,75 @@ CREATE TABLE `sys_role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限关联表';
 
 -- ============================================
+-- 7. 系统日志 & 告警管理
+-- ============================================
+
+-- 告警配置表（钉钉 Webhook）
+DROP TABLE IF EXISTS `sys_alarm_config`;
+CREATE TABLE `sys_alarm_config` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `name` VARCHAR(100) NOT NULL COMMENT '配置名称',
+    `webhook_url` VARCHAR(500) NOT NULL COMMENT '钉钉机器人Webhook地址',
+    `secret` VARCHAR(200) COMMENT '密钥（可选，用于加签）',
+    `enabled` TINYINT DEFAULT 1 COMMENT '是否启用：1-启用 0-禁用',
+    `event_codes` VARCHAR(500) COMMENT '通知事件编码，逗号分隔（vuln_publish,vuln_retest,vuln_fix,article_publish,case_public,daily_summary）',
+    `daily_enabled` TINYINT DEFAULT 0 COMMENT '是否启用每日汇总：1-启用 0-禁用',
+    `daily_time` TIME COMMENT '每日推送时间（系统时间）',
+    `last_daily_sent_date` DATE COMMENT '上一次每日汇总发送日期（防重复）',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_by` BIGINT COMMENT '创建人',
+    `update_by` BIGINT COMMENT '更新人',
+    PRIMARY KEY (`id`),
+    INDEX `idx_enabled` (`enabled`),
+    INDEX `idx_daily` (`daily_enabled`, `daily_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='告警配置表';
+
+-- 登录日志表
+DROP TABLE IF EXISTS `sys_login_log`;
+CREATE TABLE `sys_login_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `user_id` BIGINT COMMENT '用户ID（登录失败时可能为空）',
+    `username` VARCHAR(50) COMMENT '用户名',
+    `login_result` VARCHAR(20) NOT NULL COMMENT '登录结果：success/fail',
+    `fail_reason` VARCHAR(200) COMMENT '失败原因',
+    `ip` VARCHAR(50) COMMENT 'IP地址',
+    `user_agent` VARCHAR(500) COMMENT 'User-Agent',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（登录时间）',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_by` BIGINT COMMENT '创建人',
+    `update_by` BIGINT COMMENT '更新人',
+    PRIMARY KEY (`id`),
+    INDEX `idx_username` (`username`),
+    INDEX `idx_user` (`user_id`),
+    INDEX `idx_result_time` (`login_result`, `create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='登录日志表';
+
+-- 操作日志表
+DROP TABLE IF EXISTS `sys_operation_log`;
+CREATE TABLE `sys_operation_log` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `user_id` BIGINT COMMENT '用户ID',
+    `username` VARCHAR(50) COMMENT '用户名',
+    `ip` VARCHAR(50) COMMENT 'IP地址',
+    `user_agent` VARCHAR(500) COMMENT 'User-Agent',
+    `http_method` VARCHAR(10) COMMENT 'HTTP方法',
+    `request_path` VARCHAR(300) COMMENT '请求路径',
+    `request_params` TEXT COMMENT '请求参数（摘要）',
+    `success` TINYINT DEFAULT 1 COMMENT '是否成功：1-成功 0-失败',
+    `error_message` VARCHAR(500) COMMENT '错误信息（失败时）',
+    `cost_ms` BIGINT COMMENT '耗时（毫秒）',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_by` BIGINT COMMENT '创建人',
+    `update_by` BIGINT COMMENT '更新人',
+    PRIMARY KEY (`id`),
+    INDEX `idx_user` (`user_id`),
+    INDEX `idx_success_time` (`success`, `create_time`),
+    INDEX `idx_path` (`request_path`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='操作日志表';
+
+-- ============================================
 -- 建表SQL结束
--- 21张表全部创建完成！（新增RBAC的4张表：角色、权限、用户角色关联、角色权限关联）
+-- 24张表全部创建完成！（新增RBAC的4张表：角色、权限、用户角色关联、角色权限关联；新增3张：告警配置、登录日志、操作日志）
 -- ============================================

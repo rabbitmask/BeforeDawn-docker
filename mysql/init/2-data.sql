@@ -59,80 +59,80 @@ INSERT INTO `sys_dict_type` (`id`, `dict_code`, `dict_name`, `description`, `sys
 DELETE FROM `sys_dict_data`;
 
 -- 4.1 漏洞来源（vuln_source）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
-('vuln_source', '自查发现', 'self_check', 'blue', 1, 0, '安全团队日常自查发现的漏洞'),
-('vuln_source', '攻防演练', 'attack_defense', 'red', 2, 0, '攻防演练期间发现的漏洞'),
-('vuln_source', '上级通报', 'superior_report', 'orange', 3, 0, '上级单位或监管部门通报的漏洞'),
-('vuln_source', '渗透测试', 'penetration_test', 'purple', 4, 0, '专项渗透测试发现的漏洞'),
-('vuln_source', '代码审计', 'code_audit', 'green', 5, 0, '代码安全审计发现的漏洞'),
-('vuln_source', '安全扫描', 'security_scan', 'cyan', 6, 0, '自动化扫描工具发现的漏洞'),
-('vuln_source', '外部报告', 'external_report', 'yellow', 7, 0, '外部安全研究人员或白帽子报告'),
-('vuln_source', '用户反馈', 'user_feedback', 'gray', 8, 0, '用户反馈的安全问题'),
-('vuln_source', '应急响应', 'emergency', 'red', 9, 0, '安全事件应急响应中发现的漏洞'),
-('vuln_source', '其他', 'other', 'default', 99, 0, '其他来源');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
+(100001, 'vuln_source', '自查发现', 'self_check', 'blue', 1, 0, '安全团队日常自查发现的漏洞'),
+(100002, 'vuln_source', '攻防演练', 'attack_defense', 'red', 2, 0, '攻防演练期间发现的漏洞'),
+(100003, 'vuln_source', '上级通报', 'superior_report', 'orange', 3, 0, '上级单位或监管部门通报的漏洞'),
+(100004, 'vuln_source', '渗透测试', 'penetration_test', 'purple', 4, 0, '专项渗透测试发现的漏洞'),
+(100005, 'vuln_source', '代码审计', 'code_audit', 'green', 5, 0, '代码安全审计发现的漏洞'),
+(100006, 'vuln_source', '安全扫描', 'security_scan', 'cyan', 6, 0, '自动化扫描工具发现的漏洞'),
+(100007, 'vuln_source', '外部报告', 'external_report', 'yellow', 7, 0, '外部安全研究人员或白帽子报告'),
+(100008, 'vuln_source', '用户反馈', 'user_feedback', 'gray', 8, 0, '用户反馈的安全问题'),
+(100009, 'vuln_source', '应急响应', 'emergency', 'red', 9, 0, '安全事件应急响应中发现的漏洞'),
+(100010, 'vuln_source', '其他', 'other', 'default', 99, 0, '其他来源');
 
 -- 4.2 漏洞类型（vuln_type）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
-('vuln_type', 'SQL注入', 'sql_injection', 'red', 1, 0, '数据库注入漏洞'),
-('vuln_type', 'XSS跨站脚本', 'xss', 'orange', 2, 0, '跨站脚本攻击漏洞'),
-('vuln_type', 'CSRF跨站请求伪造', 'csrf', 'yellow', 3, 0, '跨站请求伪造漏洞'),
-('vuln_type', '文件上传漏洞', 'file_upload', 'red', 4, 0, '任意文件上传漏洞'),
-('vuln_type', '文件包含漏洞', 'file_inclusion', 'orange', 5, 0, '本地/远程文件包含'),
-('vuln_type', '命令执行', 'command_injection', 'red', 6, 0, '系统命令注入漏洞'),
-('vuln_type', '代码执行', 'code_execution', 'red', 7, 0, '任意代码执行漏洞'),
-('vuln_type', '越权访问', 'broken_access_control', 'orange', 8, 0, '水平/垂直越权漏洞'),
-('vuln_type', '敏感信息泄露', 'info_disclosure', 'yellow', 9, 0, '敏感数据泄露'),
-('vuln_type', '弱口令', 'weak_password', 'blue', 10, 0, '弱口令或默认口令'),
-('vuln_type', '未授权访问', 'unauthorized_access', 'orange', 11, 0, '无需认证即可访问'),
-('vuln_type', 'XXE漏洞', 'xxe', 'orange', 12, 0, 'XML外部实体注入'),
-('vuln_type', 'SSRF漏洞', 'ssrf', 'orange', 13, 0, '服务端请求伪造'),
-('vuln_type', '反序列化漏洞', 'deserialization', 'red', 14, 0, '不安全的反序列化'),
-('vuln_type', '逻辑漏洞', 'business_logic', 'yellow', 15, 0, '业务逻辑漏洞'),
-('vuln_type', '配置错误', 'misconfiguration', 'blue', 16, 0, '安全配置不当'),
-('vuln_type', '中间件漏洞', 'middleware', 'orange', 17, 0, '中间件或组件漏洞'),
-('vuln_type', '其他', 'other', 'default', 99, 0, '其他类型漏洞');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
+(100011, 'vuln_type', 'SQL注入', 'sql_injection', 'red', 1, 0, '数据库注入漏洞'),
+(100012, 'vuln_type', 'XSS跨站脚本', 'xss', 'orange', 2, 0, '跨站脚本攻击漏洞'),
+(100013, 'vuln_type', 'CSRF跨站请求伪造', 'csrf', 'yellow', 3, 0, '跨站请求伪造漏洞'),
+(100014, 'vuln_type', '文件上传漏洞', 'file_upload', 'red', 4, 0, '任意文件上传漏洞'),
+(100015, 'vuln_type', '文件包含漏洞', 'file_inclusion', 'orange', 5, 0, '本地/远程文件包含'),
+(100016, 'vuln_type', '命令执行', 'command_injection', 'red', 6, 0, '系统命令注入漏洞'),
+(100017, 'vuln_type', '代码执行', 'code_execution', 'red', 7, 0, '任意代码执行漏洞'),
+(100018, 'vuln_type', '越权访问', 'broken_access_control', 'orange', 8, 0, '水平/垂直越权漏洞'),
+(100019, 'vuln_type', '敏感信息泄露', 'info_disclosure', 'yellow', 9, 0, '敏感数据泄露'),
+(100020, 'vuln_type', '弱口令', 'weak_password', 'blue', 10, 0, '弱口令或默认口令'),
+(100021, 'vuln_type', '未授权访问', 'unauthorized_access', 'orange', 11, 0, '无需认证即可访问'),
+(100022, 'vuln_type', 'XXE漏洞', 'xxe', 'orange', 12, 0, 'XML外部实体注入'),
+(100023, 'vuln_type', 'SSRF漏洞', 'ssrf', 'orange', 13, 0, '服务端请求伪造'),
+(100024, 'vuln_type', '反序列化漏洞', 'deserialization', 'red', 14, 0, '不安全的反序列化'),
+(100025, 'vuln_type', '逻辑漏洞', 'business_logic', 'yellow', 15, 0, '业务逻辑漏洞'),
+(100026, 'vuln_type', '配置错误', 'misconfiguration', 'blue', 16, 0, '安全配置不当'),
+(100027, 'vuln_type', '中间件漏洞', 'middleware', 'orange', 17, 0, '中间件或组件漏洞'),
+(100028, 'vuln_type', '其他', 'other', 'default', 99, 0, '其他类型漏洞');
 
 -- 4.3 风险等级（risk_level）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `is_default`, `remark`) VALUES
-('risk_level', '严重', 'critical', 'red', 1, 1, 0, 'CVSS 9.0-10.0，可直接获取系统控制权'),
-('risk_level', '高危', 'high', 'orange', 2, 1, 0, 'CVSS 7.0-8.9，可导致数据泄露或系统瘫痪'),
-('risk_level', '中危', 'medium', 'yellow', 3, 1, 1, 'CVSS 4.0-6.9，需特定条件才能利用'),
-('risk_level', '低危', 'low', 'blue', 4, 1, 0, 'CVSS 0.1-3.9，危害较小'),
-('risk_level', '信息', 'info', 'gray', 5, 1, 0, '仅为信息性发现，无直接危害');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `is_default`, `remark`) VALUES
+(100029, 'risk_level', '严重', 'critical', 'red', 1, 1, 0, 'CVSS 9.0-10.0，可直接获取系统控制权'),
+(100030, 'risk_level', '高危', 'high', 'orange', 2, 1, 0, 'CVSS 7.0-8.9，可导致数据泄露或系统瘫痪'),
+(100031, 'risk_level', '中危', 'medium', 'yellow', 3, 1, 1, 'CVSS 4.0-6.9，需特定条件才能利用'),
+(100032, 'risk_level', '低危', 'low', 'blue', 4, 1, 0, 'CVSS 0.1-3.9，危害较小'),
+(100033, 'risk_level', '信息', 'info', 'gray', 5, 1, 0, '仅为信息性发现，无直接危害');
 
 -- 4.4 漏洞状态（vuln_status）
 -- 简化为三个状态：待修复、待复测、已完成
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
-('vuln_status', '待修复', 'assigned', 'warning', 1, 1, '已分配给开发人员待修复，包括新提交和复测不通过的漏洞'),
-('vuln_status', '待复测', 'fixed', 'primary', 2, 1, '开发人员已修复，等待安全人员复测'),
-('vuln_status', '已完成', 'closed', 'success', 3, 1, '安全人员复测通过，漏洞处理完成');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
+(100034, 'vuln_status', '待修复', 'assigned', 'warning', 1, 1, '已分配给开发人员待修复，包括新提交和复测不通过的漏洞'),
+(100035, 'vuln_status', '待复测', 'fixed', 'primary', 2, 1, '开发人员已修复，等待安全人员复测'),
+(100036, 'vuln_status', '已完成', 'closed', 'success', 3, 1, '安全人员复测通过，漏洞处理完成');
 
 -- 4.5 资产类型（asset_type）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_icon`, `sort_order`, `system_flag`, `remark`) VALUES
-('asset_type', 'Web应用', 'web_application', 'icon-web', 1, 0, 'Web应用系统'),
-('asset_type', '移动应用', 'mobile_app', 'icon-mobile', 2, 0, 'Android/iOS应用'),
-('asset_type', '服务器主机', 'server_host', 'icon-server', 3, 0, '物理服务器或云主机'),
-('asset_type', '网络设备', 'network_device', 'icon-network', 4, 0, '路由器、交换机、防火墙等'),
-('asset_type', '域名', 'domain', 'icon-domain', 5, 0, '对外服务域名'),
-('asset_type', 'API接口', 'api', 'icon-api', 6, 0, 'RESTful API或WebService'),
-('asset_type', '数据库', 'database', 'icon-database', 7, 0, 'MySQL、Oracle、Redis等'),
-('asset_type', '其他', 'other', 'icon-other', 99, 0, '其他类型资产');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_icon`, `sort_order`, `system_flag`, `remark`) VALUES
+(100037, 'asset_type', 'Web应用', 'web_application', 'icon-web', 1, 0, 'Web应用系统'),
+(100038, 'asset_type', '移动应用', 'mobile_app', 'icon-mobile', 2, 0, 'Android/iOS应用'),
+(100039, 'asset_type', '服务器主机', 'server_host', 'icon-server', 3, 0, '物理服务器或云主机'),
+(100040, 'asset_type', '网络设备', 'network_device', 'icon-network', 4, 0, '路由器、交换机、防火墙等'),
+(100041, 'asset_type', '域名', 'domain', 'icon-domain', 5, 0, '对外服务域名'),
+(100042, 'asset_type', 'API接口', 'api', 'icon-api', 6, 0, 'RESTful API或WebService'),
+(100043, 'asset_type', '数据库', 'database', 'icon-database', 7, 0, 'MySQL、Oracle、Redis等'),
+(100044, 'asset_type', '其他', 'other', 'icon-other', 99, 0, '其他类型资产');
 
 -- 4.6 业务重要性（business_level）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
-('business_level', '核心业务', 'critical', 'red', 1, 0, '核心业务系统，不可中断'),
-('business_level', '重要业务', 'high', 'orange', 2, 0, '重要业务系统，影响较大'),
-('business_level', '一般业务', 'medium', 'blue', 3, 0, '一般业务系统'),
-('business_level', '辅助业务', 'low', 'gray', 4, 0, '辅助或测试系统');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_color`, `sort_order`, `system_flag`, `remark`) VALUES
+(100045, 'business_level', '核心业务', 'critical', 'red', 1, 0, '核心业务系统，不可中断'),
+(100046, 'business_level', '重要业务', 'high', 'orange', 2, 0, '重要业务系统，影响较大'),
+(100047, 'business_level', '一般业务', 'medium', 'blue', 3, 0, '一般业务系统'),
+(100048, 'business_level', '辅助业务', 'low', 'gray', 4, 0, '辅助或测试系统');
 
 -- 4.7 知识库分类（knowledge_category）
-INSERT INTO `sys_dict_data` (`dict_type_code`, `dict_label`, `dict_value`, `sort_order`, `system_flag`, `remark`) VALUES
-('knowledge_category', '漏洞修复指南', 'fix_guide', 1, 0, '各类漏洞的修复方法'),
-('knowledge_category', '安全配置基线', 'security_baseline', 2, 0, '安全加固配置指南'),
-('knowledge_category', '历史案例分析', 'case_study', 3, 0, '历史漏洞案例分析'),
-('knowledge_category', '安全开发规范', 'dev_standard', 4, 0, '安全编码规范'),
-('knowledge_category', '工具使用教程', 'tool_tutorial', 5, 0, '安全工具使用教程'),
-('knowledge_category', '其他', 'other', 99, 0, '其他知识文章');
+INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `sort_order`, `system_flag`, `remark`) VALUES
+(100049, 'knowledge_category', '漏洞修复指南', 'fix_guide', 1, 0, '各类漏洞的修复方法'),
+(100050, 'knowledge_category', '安全配置基线', 'security_baseline', 2, 0, '安全加固配置指南'),
+(100051, 'knowledge_category', '历史案例分析', 'case_study', 3, 0, '历史漏洞案例分析'),
+(100052, 'knowledge_category', '安全开发规范', 'dev_standard', 4, 0, '安全编码规范'),
+(100053, 'knowledge_category', '工具使用教程', 'tool_tutorial', 5, 0, '安全工具使用教程'),
+(100054, 'knowledge_category', '其他', 'other', 99, 0, '其他知识文章');
 
 -- ============================================
 -- 5. 知识库相关配置
@@ -159,7 +159,9 @@ INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permi
 (102, 'system:dept', '部门管理', 'menu', 100, '/system/department', 'OfficeBuilding', 102),
 (103, 'system:role', '角色管理', 'menu', 100, '/system/role', 'Avatar', 103),
 (104, 'system:permission', '权限管理', 'menu', 100, '/system/permission', 'Lock', 104),
-(105, 'system:dict', '字典管理', 'menu', 100, '/system/dict', 'Notebook', 105);
+(105, 'system:dict', '字典管理', 'menu', 100, '/system/dict', 'Notebook', 105),
+(106, 'system:alarm', '告警管理', 'menu', 100, '/system/alarm', 'Bell', 106),
+(107, 'system:log', '日志管理', 'menu', 100, '/system/log', 'Document', 107);
 
 INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permission_type`, `parent_id`, `sort_order`) VALUES
 (111, 'system:user:query', '查询用户', 'button', 101, 1),
@@ -181,7 +183,21 @@ INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permi
 (151, 'system:dict:query', '查询字典', 'button', 105, 1),
 (152, 'system:dict:add', '新增字典', 'button', 105, 2),
 (153, 'system:dict:edit', '编辑字典', 'button', 105, 3),
-(154, 'system:dict:delete', '删除字典', 'button', 105, 4);
+(154, 'system:dict:delete', '删除字典', 'button', 105, 4),
+-- 告警管理
+(161, 'system:alarm:query', '查询告警配置', 'button', 106, 1),
+(162, 'system:alarm:add', '新增告警配置', 'button', 106, 2),
+(163, 'system:alarm:edit', '编辑告警配置', 'button', 106, 3),
+(164, 'system:alarm:delete', '删除告警配置', 'button', 106, 4),
+(165, 'system:alarm:enable', '启停告警配置', 'button', 106, 5),
+(166, 'system:alarm:test', '测试告警通知', 'button', 106, 6),
+-- 日志管理
+(171, 'system:log:login:query', '查询登录日志', 'button', 107, 1),
+(172, 'system:log:login:delete', '删除登录日志', 'button', 107, 2),
+(173, 'system:log:login:clear', '清空登录日志', 'button', 107, 3),
+(174, 'system:log:operation:query', '查询操作日志', 'button', 107, 4),
+(175, 'system:log:operation:delete', '删除操作日志', 'button', 107, 5),
+(176, 'system:log:operation:clear', '清空操作日志', 'button', 107, 6);
 
 -- 6.2.2 资产管理模块权限
 INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permission_type`, `parent_id`, `resource_path`, `icon`, `sort_order`) VALUES
