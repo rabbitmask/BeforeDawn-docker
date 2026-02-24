@@ -110,12 +110,10 @@ INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`,
 -- 4.5 资产类型（asset_type）
 INSERT INTO `sys_dict_data` (`id`, `dict_type_code`, `dict_label`, `dict_value`, `dict_icon`, `sort_order`, `system_flag`, `remark`) VALUES
 (100037, 'asset_type', 'Web应用', 'web_application', 'icon-web', 1, 0, 'Web应用系统'),
-(100038, 'asset_type', '移动应用', 'mobile_app', 'icon-mobile', 2, 0, 'Android/iOS应用'),
-(100039, 'asset_type', '服务器主机', 'server_host', 'icon-server', 3, 0, '物理服务器或云主机'),
-(100040, 'asset_type', '网络设备', 'network_device', 'icon-network', 4, 0, '路由器、交换机、防火墙等'),
-(100041, 'asset_type', '域名', 'domain', 'icon-domain', 5, 0, '对外服务域名'),
-(100042, 'asset_type', 'API接口', 'api', 'icon-api', 6, 0, 'RESTful API或WebService'),
-(100043, 'asset_type', '数据库', 'database', 'icon-database', 7, 0, 'MySQL、Oracle、Redis等'),
+(100042, 'asset_type', 'API接口', 'api', 'icon-api', 2, 0, 'RESTful API'),
+(100041, 'asset_type', '域名', 'domain', 'icon-domain', 3, 0, '对外服务域名'),
+(100055, 'asset_type', 'IP地址', 'ip', 'icon-network', 4, 0, 'IPv4/IPv6地址'),
+(100043, 'asset_type', '数据库', 'database', 'icon-database', 5, 0, 'MySQL/Oracle/Redis等'),
 (100044, 'asset_type', '其他', 'other', 'icon-other', 99, 0, '其他类型资产');
 
 -- 4.6 业务重要性（business_level）

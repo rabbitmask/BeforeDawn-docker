@@ -149,7 +149,7 @@ CREATE TABLE `asset_info` (
     `high_risk_vuln_count` INT DEFAULT 0 COMMENT '高危漏洞数（冗余字段）',
     `last_scan_time` DATETIME COMMENT '最后扫描时间',
     -- 状态管理
-    `status` TINYINT DEFAULT 1 COMMENT '状态：1-在用 2-下线 3-待上线',
+    `status` TINYINT DEFAULT 1 COMMENT '状态：1-在用 0-停用',
     `online_time` DATETIME COMMENT '上线时间',
     `offline_time` DATETIME COMMENT '下线时间',
     `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

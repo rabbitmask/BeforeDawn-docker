@@ -1,0 +1,1 @@
+import{as as r}from"./index-DG9m7imz.js";function t(e){return r({url:"/system/user/list",method:"get",params:e})}function u(e){return r({url:`/system/user/reset-password/${e}`,method:"put"})}function o(e){return r({url:"/system/user/update-profile",method:"put",data:e})}export{t as g,u as r,o as u};
