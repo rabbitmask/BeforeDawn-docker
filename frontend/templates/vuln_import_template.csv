@@ -1,0 +1,6 @@
+漏洞标题,漏洞描述,漏洞类型,风险等级,来源类型,资产编码
+SQL注入漏洞,用户输入参数未经过滤直接拼接到SQL语句中,injection,high,manual,ASSET-001
+XSS跨站脚本,在评论框中未对用户输入进行HTML转义,xss,medium,scanner,ASSET-002
+文件上传漏洞,头像上传功能未限制文件类型,file-upload,high,pentest,ASSET-003
+信息泄露,调试模式开启导致敏感信息暴露,info-leak,medium,code-review,ASSET-001
+权限绕过漏洞,未对用户访问权限进行严格校验,auth-bypass,critical,manual,ASSET-004
