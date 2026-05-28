@@ -1,0 +1,1 @@
+import{ax as t}from"./index-Dkken7XX.js";function s(e){return t({url:"/system/user/list",method:"get",params:e})}function u(e){return t({url:`/system/user/reset-password/${e}`,method:"put"})}function o(){return t({url:"/system/role/all",method:"get"})}function l(e){return t({url:"/system/user/update-profile",method:"put",data:e})}export{s as a,o as g,u as r,l as u};
