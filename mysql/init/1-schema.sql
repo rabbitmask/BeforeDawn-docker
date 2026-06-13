@@ -136,6 +136,7 @@ CREATE TABLE `asset_info` (
     `backup_owner_id` BIGINT COMMENT '备用负责人ID',
     `backup_owner_name` VARCHAR(50) COMMENT '备用负责人姓名',
     -- 技术信息
+    `geo_location` VARCHAR(255) COMMENT '地理位置',
     `tech_stack` VARCHAR(500) COMMENT '技术栈（如Java/Spring Boot/MySQL）',
     `framework` VARCHAR(200) COMMENT '框架版本',
     `deploy_env` VARCHAR(50) COMMENT '部署环境：production/staging/test/development',
@@ -548,3 +549,43 @@ CREATE TABLE `sys_alarm_log` (
     INDEX `idx_alarm_event_code` (`event_code`),
     INDEX `idx_alarm_sent_at` (`sent_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='告警日志表';
+-- ============================================
+-- LDAP 认证初始化补充
+-- 说明：为避免历史编码问题，LDAP 相关结构统一在初始化脚本末尾补齐
+-- ============================================
+
+ALTER TABLE `sys_user`
+    ADD COLUMN `auth_source` VARCHAR(20) NOT NULL DEFAULT 'LOCAL' COMMENT '认证来源：LOCAL / LDAP' AFTER `department_name`,
+    ADD COLUMN `ldap_uid` VARCHAR(128) NULL COMMENT 'LDAP 唯一标识' AFTER `status`,
+    ADD COLUMN `ldap_dn` VARCHAR(512) NULL COMMENT 'LDAP DN' AFTER `ldap_uid`,
+    ADD COLUMN `last_sync_time` DATETIME NULL COMMENT '最后同步时间' AFTER `ldap_dn`;
+
+ALTER TABLE `sys_user`
+    ADD UNIQUE KEY `uk_ldap_uid` (`ldap_uid`);
+
+DROP TABLE IF EXISTS `sys_auth_config`;
+CREATE TABLE `sys_auth_config` (
+    `id` BIGINT NOT NULL COMMENT '主键ID',
+    `auth_mode` VARCHAR(32) NOT NULL DEFAULT 'LOCAL' COMMENT '认证模式：LOCAL / LOCAL_LDAP',
+    `ldap_type` VARCHAR(32) DEFAULT 'AD' COMMENT 'LDAP 类型：AD / OPENLDAP',
+    `host` VARCHAR(255) DEFAULT NULL COMMENT 'LDAP 服务器地址',
+    `port` INT DEFAULT 389 COMMENT 'LDAP 端口',
+    `ssl_enabled` TINYINT DEFAULT 0 COMMENT '是否启用 SSL',
+    `base_dn` VARCHAR(512) DEFAULT NULL COMMENT 'Base DN',
+    `bind_dn` VARCHAR(512) DEFAULT NULL COMMENT 'Bind DN',
+    `bind_password` VARCHAR(512) DEFAULT NULL COMMENT 'Bind 密码',
+    `user_filter` VARCHAR(512) DEFAULT NULL COMMENT '用户过滤器',
+    `username_attr` VARCHAR(128) DEFAULT NULL COMMENT '用户名属性',
+    `unique_id_attr` VARCHAR(128) DEFAULT NULL COMMENT '唯一标识属性',
+    `real_name_attr` VARCHAR(128) DEFAULT NULL COMMENT '姓名属性',
+    `email_attr` VARCHAR(128) DEFAULT NULL COMMENT '邮箱属性',
+    `phone_attr` VARCHAR(128) DEFAULT NULL COMMENT '手机属性',
+    `department_attr` VARCHAR(128) DEFAULT NULL COMMENT '部门属性',
+    `auto_create_user` TINYINT DEFAULT 1 COMMENT '是否首次登录自动建档',
+    `auto_sync_profile` TINYINT DEFAULT 1 COMMENT '是否自动同步资料',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_by` BIGINT DEFAULT NULL COMMENT '创建人',
+    `update_by` BIGINT DEFAULT NULL COMMENT '更新人',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统认证配置';

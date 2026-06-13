@@ -333,3 +333,26 @@ WHERE u.user_role IN ('admin', 'security', 'developer')
 -- 初始化数据全部插入完成！包括RBAC的角色、权限、关联关系！
 -- 默认管理员账号：admin / 123456
 -- ============================================
+-- ============================================
+-- LDAP 认证初始化补充
+-- 说明：为避免历史编码问题，LDAP 相关种子数据统一在初始化脚本末尾补齐
+-- ============================================
+
+UPDATE `sys_user`
+SET `auth_source` = 'LOCAL'
+WHERE `auth_source` IS NULL OR `auth_source` = '';
+
+INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permission_type`, `parent_id`, `resource_path`, `icon`, `sort_order`)
+VALUES (108, 'system:auth', '认证配置', 'menu', 100, '/system/auth', 'Key', 108);
+
+INSERT INTO `sys_permission` (`id`, `permission_code`, `permission_name`, `permission_type`, `parent_id`, `sort_order`)
+VALUES
+(181, 'system:auth:query', '查询认证配置', 'button', 108, 1),
+(182, 'system:auth:edit', '编辑认证配置', 'button', 108, 2),
+(183, 'system:auth:test', '测试认证配置', 'button', 108, 3);
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`)
+VALUES
+(1, 108),
+(1, 181),
+(1, 182),
+(1, 183);
