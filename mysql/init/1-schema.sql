@@ -50,8 +50,12 @@ CREATE TABLE `sys_user` (
     `phone` VARCHAR(20) COMMENT '手机号',
     `department_id` BIGINT COMMENT '主部门ID',
     `department_name` VARCHAR(100) COMMENT '主部门名称（冗余）',
+    `auth_source` VARCHAR(20) NOT NULL DEFAULT 'LOCAL' COMMENT '认证来源：LOCAL / LDAP',
     `user_role` VARCHAR(30) NOT NULL COMMENT '角色：ADMIN-管理员 SECURITY-安全人员 DEVELOPER-开发人员',
     `status` TINYINT DEFAULT 1 COMMENT '状态：1-启用 0-禁用',
+    `ldap_uid` VARCHAR(128) NULL COMMENT 'LDAP 唯一标识',
+    `ldap_dn` VARCHAR(512) NULL COMMENT 'LDAP DN',
+    `last_sync_time` DATETIME NULL COMMENT '最后同步时间',
     -- 统计字段（定期更新）
     `vuln_submitted_count` INT DEFAULT 0 COMMENT '提交漏洞数（安全人员）',
     `vuln_fixed_count` INT DEFAULT 0 COMMENT '修复漏洞数（开发人员）',
@@ -63,6 +67,7 @@ CREATE TABLE `sys_user` (
     `update_by` BIGINT COMMENT '更新人',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username` (`username`),
+    UNIQUE KEY `uk_ldap_uid` (`ldap_uid`),
     INDEX `idx_department` (`department_id`),
     INDEX `idx_user_role` (`user_role`),
     INDEX `idx_status` (`status`)
@@ -530,8 +535,10 @@ CREATE TABLE `sys_alarm_log` (
     `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `config_id` BIGINT COMMENT '配置ID',
     `config_name` VARCHAR(100) COMMENT '配置名称',
+    `channel_type` VARCHAR(20) DEFAULT 'WEBHOOK' COMMENT '告警通道：WEBHOOK / EMAIL',
     `event_code` VARCHAR(100) COMMENT '事件编码',
     `alarm_title` VARCHAR(200) COMMENT '告警标题',
+    `recipient` VARCHAR(1000) DEFAULT NULL COMMENT '接收对象',
     `request_method` VARCHAR(20) COMMENT '请求方法',
     `request_path` VARCHAR(300) COMMENT '请求路径',
     `success` TINYINT DEFAULT 1 COMMENT '是否成功',
@@ -547,21 +554,13 @@ CREATE TABLE `sys_alarm_log` (
     PRIMARY KEY (`id`),
     INDEX `idx_alarm_config_id` (`config_id`),
     INDEX `idx_alarm_event_code` (`event_code`),
+    INDEX `idx_alarm_channel_type` (`channel_type`),
     INDEX `idx_alarm_sent_at` (`sent_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='告警日志表';
 -- ============================================
 -- LDAP 认证初始化补充
 -- 说明：为避免历史编码问题，LDAP 相关结构统一在初始化脚本末尾补齐
 -- ============================================
-
-ALTER TABLE `sys_user`
-    ADD COLUMN `auth_source` VARCHAR(20) NOT NULL DEFAULT 'LOCAL' COMMENT '认证来源：LOCAL / LDAP' AFTER `department_name`,
-    ADD COLUMN `ldap_uid` VARCHAR(128) NULL COMMENT 'LDAP 唯一标识' AFTER `status`,
-    ADD COLUMN `ldap_dn` VARCHAR(512) NULL COMMENT 'LDAP DN' AFTER `ldap_uid`,
-    ADD COLUMN `last_sync_time` DATETIME NULL COMMENT '最后同步时间' AFTER `ldap_dn`;
-
-ALTER TABLE `sys_user`
-    ADD UNIQUE KEY `uk_ldap_uid` (`ldap_uid`);
 
 DROP TABLE IF EXISTS `sys_auth_config`;
 CREATE TABLE `sys_auth_config` (
@@ -589,3 +588,32 @@ CREATE TABLE `sys_auth_config` (
     `update_by` BIGINT DEFAULT NULL COMMENT '更新人',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统认证配置';
+-- ============================================
+-- 邮箱告警配置补充
+-- ============================================
+
+DROP TABLE IF EXISTS `sys_email_alarm_config`;
+CREATE TABLE `sys_email_alarm_config` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `name` VARCHAR(100) NOT NULL COMMENT '配置名称',
+    `mail_host` VARCHAR(255) NOT NULL COMMENT 'SMTP 服务器',
+    `mail_port` INT NOT NULL COMMENT 'SMTP 端口',
+    `username` VARCHAR(255) NOT NULL COMMENT '认证账号',
+    `password` VARCHAR(255) DEFAULT NULL COMMENT '认证密码',
+    `sender_name` VARCHAR(100) NOT NULL COMMENT '发件人名称',
+    `sender_email` VARCHAR(255) NOT NULL COMMENT '发件邮箱',
+    `ssl_enabled` TINYINT DEFAULT 0 COMMENT '是否启用 SSL',
+    `starttls_enabled` TINYINT DEFAULT 0 COMMENT '是否启用 STARTTLS',
+    `enabled` TINYINT DEFAULT 1 COMMENT '是否启用：1-启用 0-禁用',
+    `event_codes` VARCHAR(500) DEFAULT NULL COMMENT '订阅事件编码，逗号分隔',
+    `daily_enabled` TINYINT DEFAULT 0 COMMENT '是否启用每日报告：1-启用 0-禁用',
+    `daily_time` TIME DEFAULT NULL COMMENT '每日报告发送时间',
+    `last_daily_sent_date` DATE DEFAULT NULL COMMENT '上次每日报告发送日期',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_by` BIGINT DEFAULT NULL COMMENT '创建人',
+    `update_by` BIGINT DEFAULT NULL COMMENT '更新人',
+    PRIMARY KEY (`id`),
+    INDEX `idx_email_alarm_enabled` (`enabled`),
+    INDEX `idx_email_alarm_daily` (`daily_enabled`, `daily_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='邮箱告警配置表';

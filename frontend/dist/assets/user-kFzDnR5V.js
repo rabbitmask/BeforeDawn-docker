@@ -1,0 +1,1 @@
+import{aG as r}from"./index-GWqMJVj2.js";function s(e){return r({url:"/system/user/developer-options",method:"get",params:e})}function o(e){return r({url:`/system/user/reset-password/${e}`,method:"put"})}function u(e){return r({url:"/system/user/update-profile",method:"put",data:e})}export{s as g,o as r,u};
